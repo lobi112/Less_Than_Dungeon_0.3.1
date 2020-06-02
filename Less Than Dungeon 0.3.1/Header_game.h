@@ -20,13 +20,13 @@ public:
 	int weapon_spead;  //настройка шанса нанесения удара
 	int weapon_cost;
 
-	MyWeapon()
+	/*MyWeapon()
 	{
 		weapon_name = "Кулак";
 		weapon_damage = weapon_damage_dif = weapon_dodge = weapon_spead = weapon_cost = 0;
-	}
+	}*/
 
-	MyWeapon(string name, int type, int damage, int damage_dif, int dodge, int spead, int cost)
+	MyWeapon(string name = "Кулак", int type = 0, int damage = 0, int damage_dif = 0, int dodge = 0, int spead = 0, int cost = 0)
 	{
 		weapon_type = type;
 		weapon_name = name;
