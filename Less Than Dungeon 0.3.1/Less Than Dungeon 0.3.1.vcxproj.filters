@@ -33,6 +33,9 @@
     <ClCompile Include="Inventory_check.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="event_selection.cpp">
+      <Filter>Исходные файлы\Квесты/события</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header_game.h">

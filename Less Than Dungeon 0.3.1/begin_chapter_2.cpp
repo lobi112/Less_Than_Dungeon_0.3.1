@@ -1,5 +1,8 @@
 #include "Header_game.h"
 
+void ammunition_check(MyHero& Hero);
+void items_check(MyHero& Hero);
+
 const unsigned int MAP_SIZE_X = 20;
 const unsigned int MAP_SIZE_Y = 20;
 const unsigned int START_POSITION_X = 10;
@@ -42,6 +45,8 @@ void Begin_chapter_2()
 	//Создание героя (ДОРАБОТКА)
 	cout << "Введите имя героя: ";
 	cin >> choice_str;
+	cout << choice_str;
+	_getch();
 	MyHero Hero(choice_str, START_POSITION_X, START_POSITION_Y);
 
 	while (1)
@@ -66,14 +71,14 @@ void Begin_chapter_2()
 		Hero.Class_choice(choice);
 		break;
 	}
+	Hero.refresh();
 
-	//Подготовка инвенторя (ДОРАБОТКА)
-	string inventory_file_path = "inventory.txt";
-	
-	ofstream inventory_out;
-	inventory_out.open(inventory_file_path);
+	MyWeapon weapon1("Меч", 1, 10, 2, 5, 5, 20);
+	MyWeapon weapon2("Секира", 2, 25, 5,-10,-10, 15);
+	Hero.item[0].create_item(weapon1);
+	Hero.item[1].create_item(weapon2);
 
-	inventory_out << "w " << 5 << "\n";
+
 
 	//Загрузка карты
 	char map_terrain[MAP_SIZE_X][MAP_SIZE_Y];
@@ -119,6 +124,8 @@ void Begin_chapter_2()
 	//Основная часть
 	while (true)
 	{
+		
+
 		if (Hero.HP < 0)
 		{
 			cout << "Погибель настигла вас, вы ушли во тьму..." << endl;
@@ -156,10 +163,11 @@ void Begin_chapter_2()
 			cout << endl;
 			cout << Hero.name << ": Что теперь?" << endl << endl;
 			cout << "1)Движение" << endl;
-			cout << "2)Инвентарь" << endl;
-			cout << "3)Экипировка" << endl;
-			cout << "4)Зелье" << endl;
-			cout << "5)Осмотреться" <<endl;
+			cout << "2)Осмотреться" <<endl;
+			cout << "3)Действия" << endl;
+			cout << "4)Инвентарь" << endl;
+			cout << "5)Экипировка" << endl;	
+			cout << "6)Информация о герое" << endl;
 			cout << "0)Сдаться" << endl;
 			cout << Hero.name << ": ";
 			cin >> choice;
@@ -207,25 +215,37 @@ void Begin_chapter_2()
 						break;
 					}
 
-					continue;
+					break;
 				}
 
-				//Просмотр инвенторя
+				//Осмотреться
 				case 2:
 				{
-				
+					break;
 				}
 
-				//Изменение экипировки
+				//Действия в данном месте
 				case 3:
 				{
-
+					break;
 				}
 
-				//использование зелья
+				//Просмотр и настройка аммуниции
 				case 4:
 				{
+					items_check(Hero);
+					break;
+				}
 
+				case 5:
+				{
+					ammunition_check(Hero);
+					break;
+				}
+
+				case 6:
+				{
+					break;
 				}
 
 				default: 
@@ -235,6 +255,7 @@ void Begin_chapter_2()
 					continue;
 				}
 			}
+			break;
 
 		}
 

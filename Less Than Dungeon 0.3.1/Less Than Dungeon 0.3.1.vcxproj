@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="begin_chapter_1.cpp" />
     <ClCompile Include="begin_chapter_2.cpp" />
+    <ClCompile Include="event_selection.cpp" />
     <ClCompile Include="Inventory_check.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Leaderboard.cpp" />
