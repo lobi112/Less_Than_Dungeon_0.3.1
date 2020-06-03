@@ -8,7 +8,7 @@
 using namespace std;
 //void Begin_chapter_1();
 void Begin_chapter_2();
-void Leaderboard();
+void LeaderboardF();
 
 void main()
 {
@@ -50,7 +50,7 @@ void main()
 		if (controller_menu == 2) //Таблица лидеров
 		{
 			system("cls");
-			Leaderboard();
+			LeaderboardF();
 			system("pause");
 			system("cls");
 		}

@@ -6,6 +6,9 @@
 #include <windows.h>
 #include <conio.h>
 #include <fstream>
+#include <vector>
+#include <list>
+#include <msxml.h>
 using namespace std;
 
 
@@ -47,12 +50,7 @@ public:
 	int armor_dodge;
 	int armor_cost;
 
-	MyArmor()
-	{
-		armor_name = "Лохмотья";
-		armor_block = armor_dodge = armor_cost  = 0;
-	}
-	MyArmor(string name, int block, int dodge, int cost)
+	MyArmor(string name = "Лохмотья", int block = 0, int dodge = 0, int cost = 0)
 	{
 		armor_name = name;
 		armor_block = block;
@@ -69,13 +67,7 @@ public:
 	int shield_dodge;
 	int shield_cost;
 
-	MyShield()
-	{
-		shield_name = "Отсутствует";
-		shield_block = shield_dodge = shield_cost = 0;
-	}
-
-	MyShield(string name, int block, int dodge, int cost)
+	MyShield(string name = "Отсутствует", int block = 0, int dodge = 0, int cost = 0)
 	{
 		shield_name = name;
 		shield_block = block;
@@ -108,7 +100,7 @@ public:
 
 	void create_item(MyWeapon &weapon)
 	{
-		item_type = weapon.weapon_type;
+		item_type = weapon.weapon_type; // 1 - одноручное, 2 - двуручное
 		weapon_name = weapon.weapon_name;
 		weapon_damage = weapon.weapon_damage;
 		weapon_damage_dif = weapon.weapon_damage_dif;
@@ -140,12 +132,12 @@ public:
 class MyHero: public  MyItem
 {
  public:
-	string name;       //Имя героя
-	string class_name; //Наименование класса
+	string name;			//Имя героя
+	string class_name;		//Наименование класса
 
-	int HP;            //Текущее здоровье
-	int Level;         //Текущий уровень 
-	int EXP;           //Текущий опыт
+	int HP;					//Текущее здоровье
+	int Level;				//Текущий уровень 
+	int EXP;				//Текущий опыт
 	int next_lvl_exp;  
 
 
@@ -172,14 +164,14 @@ class MyHero: public  MyItem
 
 
 	int position_x, position_y;
-	int weapon_hold_tupe = 1;
+	int weapon_hold_type = 1;
 
 	int potion = 0;
 	int gold = 0;
 	int picklock = 0;
 
 	int inventory_size = 10;
-	int *i = &inventory_size;
+	//vector<MyItem> item = vector<MyItem>(4);
 	MyItem *item = new MyItem[inventory_size];
 
 	MyItem current_item_right_hand;
@@ -190,7 +182,8 @@ class MyHero: public  MyItem
 
 	MyHero(string p_name, int P_X, int P_Y)
 	{
-
+		//vector<MyItem> item(4);
+		//item.reserve(10);
 		name = p_name;
 		position_x = P_X;
 		position_y = P_Y;
@@ -353,9 +346,14 @@ class MyHero: public  MyItem
 		}
 	}
 
-	~MyHero()
+	/*~MyHero()
 	{
 		delete[] item;
-	}
+	}*/
 
+};
+
+struct Leaderboard {
+	string name;
+	int score;
 };
