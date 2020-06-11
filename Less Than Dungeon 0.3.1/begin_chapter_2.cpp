@@ -2,6 +2,8 @@
 
 void ammunition_check(MyHero& Hero);
 void items_check(MyHero& Hero);
+void event_general_view(int area_event, int terrain);
+void random_ivent(MyHero& Hero, int event, int terrain);
 
 const unsigned int MAP_SIZE_X = 20;
 const unsigned int MAP_SIZE_Y = 20;
@@ -41,12 +43,11 @@ void Begin_chapter_2()
 	system("cls");
 	string choice_str; //Для письменных выборов
 	int choice;        //Для числовых выборов
+	int chance = 99;
 
 	//Создание героя (ДОРАБОТКА)
 	cout << "Введите имя героя: ";
 	cin >> choice_str;
-	cout << choice_str;
-	_getch();
 	MyHero Hero(choice_str, START_POSITION_X, START_POSITION_Y);
 
 	while (1)
@@ -118,13 +119,9 @@ void Begin_chapter_2()
 		{
 			map_terrain_out >> map_terrain[j][i];
 			map_event_out >> map_event[j][i];
-
-			cout << map_terrain[j][i] << "  ";
-
 		}
 		cout << endl;
 	}
-	_getch();
 	map_terrain_out.close();
 	map_event_out.close();
 
@@ -132,7 +129,18 @@ void Begin_chapter_2()
 	//Основная часть
 	while (true)
 	{
-		
+		chance = rand() % 100;
+		switch (map_event[Hero.position_x][Hero.position_y] / 100)
+		{
+			case 6: if (chance > 5)  break;
+			case 2: if (chance > 10) break;
+			case 3: if (chance > 20) break;
+			case 4: if (chance > 40) break;
+			case 5: if (chance > 60) break;
+			case 1: if (chance > 80) break;
+			default : random_ivent(	Hero, map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y])); break;
+		}
+
 
 		if (Hero.HP < 0)
 		{
@@ -140,28 +148,15 @@ void Begin_chapter_2()
 			system("pause");
 			break;
 		}
+
+		
 		
 		while (true)
 		{
 			system("cls");
 
-			switch (static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]))
-			{
-				case 80:  cout << "Вы находитесь вблизи Портала." << endl; break;
-				case 84:  cout << "Вы находитесь в городе." << endl; break;
-				case 86:  cout << "Вы находитесь в деревне." << endl; break;
-				case 70:  cout << "Вы находитесь в лесу." << endl; break;
-				case 82:  cout << "Вы находитесь на дороге." << endl; break;
-				case 66:  cout << "Вы находитесь на мосту." << endl; break;
-				case 114: cout << "Вы находитесь в реке." << endl; break;
-				case 67:  cout << "Вы находитесь в лагере." << endl; break;
-				case 102: cout << "Вы находитесь в открытом поле." << endl; break;
-				case 87:  cout << "Вы находитесь в пустынном гиблом месте." << endl; break;
-				case 72:  cout << "Вы находитесь в скалистом нагорье." << endl; break;
-				case 115: cout << "Вы находитесь среди болотных топей." << endl; break;
-				default:  cout << "Вы находитесь в неизвестном месте." << endl;
-			}
-
+			//Первая информация о месте
+			event_general_view( map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]) );
 
 			cout << endl;
 			cout << "Север:  ";	location(static_cast<int>(map_terrain[Hero.position_x][Hero.position_y - 1]));

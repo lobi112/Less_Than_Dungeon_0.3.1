@@ -1,11 +1,12 @@
 #include "Header_game.h"
-void event_selection(int location, int event)
+void event_selection(int location, int terrain)
 {
-	switch (location)
+
+	switch (terrain)
 	{
 		case 82:
 		{
-			switch (event)
+			switch (location)
 			{
 			case 001: cout << "У дороги стоит указатель." << endl;
 			}

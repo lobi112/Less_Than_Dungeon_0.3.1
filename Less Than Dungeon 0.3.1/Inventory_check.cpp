@@ -406,14 +406,7 @@ void items_check(MyHero& Hero)
 		if ((Hero.item[i].item_type == 1) || (Hero.item[i].item_type == 2))
 		{
 			cout << Hero.item[i].weapon_name << "\t";
-			if (Hero.item[i].item_type == 1)
-			{
-				cout << "Одноручное\t";
-			}
-			else
-			{
-				cout << "Двуручное\t";
-			}
+			(Hero.item[i].item_type == 1) ? cout << "Одноручное\t" : cout << "Двуручное\t";
 			cout << (Hero.item[i].weapon_damage - Hero.item[i].weapon_damage_dif) << "-" << (Hero.item[i].weapon_damage + Hero.item[i].weapon_damage_dif) << "\t";
 			if (Hero.item[i].weapon_spead > 0)
 			{

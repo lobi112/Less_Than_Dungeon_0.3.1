@@ -23,12 +23,6 @@ public:
 	int weapon_spead;  //настройка шанса нанесения удара
 	int weapon_cost;
 
-	/*MyWeapon()
-	{
-		weapon_name = "Кулак";
-		weapon_damage = weapon_damage_dif = weapon_dodge = weapon_spead = weapon_cost = 0;
-	}*/
-
 	MyWeapon(string name = "Кулак", int type = 0, int damage = 0, int damage_dif = 0, int dodge = 0, int spead = 0, int cost = 0)
 	{
 		weapon_type = type;
@@ -39,7 +33,6 @@ public:
 		weapon_spead = spead;
 		weapon_cost = cost;
 	}
-
 };
 
 class MyArmor
@@ -128,6 +121,51 @@ public:
 		armor_block = armor.armor_block;
 		armor_dodge = armor.armor_dodge;
 		armor_cost = armor.armor_cost;
+	}
+
+	void item_info()
+	{
+		switch (item_type)
+		{
+			case 1:
+			case 2:
+			{
+				cout << "Название :\t" << "Тип :\t\t" << "Урон :\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :" << endl << endl;
+				cout << weapon_name << "\t";
+				(item_type == 1) ? cout << "Одноручное\t" : cout << "Двуручное\t";
+				cout << (weapon_damage - weapon_damage_dif) << "-" << (weapon_damage + weapon_damage_dif) << "\t";
+				if (weapon_spead > 0)
+				{
+					cout << "+";
+				}
+				cout << weapon_spead << "\t\t";
+				if (weapon_dodge > 0)
+				{
+					cout << "+";
+				}
+				cout << weapon_dodge << "\t\t";
+				cout << weapon_cost << "\t" << endl << endl;
+				break;
+			}
+			case 3:
+			{
+				cout << "Название :\t\t" << "Защита :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
+				cout << shield_name << "\t";
+				cout << shield_block << "\t\t";
+				cout << "+" << shield_dodge << "\t\t";
+				cout << shield_cost << "\t" << endl << endl;
+				break;
+			}
+			case 4:
+			{
+				cout << "Название :\t\t" << "Защита :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
+				cout << armor_name << "\t";
+				cout << armor_block << "\t\t";
+				cout << "+" << armor_dodge << "\t\t";
+				cout << armor_cost << "\t" << endl << endl;
+				break;
+			}
+		}
 	}
 };
 
