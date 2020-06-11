@@ -78,6 +78,7 @@ void main()
 		{
 			cout << "Удачи в дороге, путник!" << endl;
 			system("pause");
+			break;
 		}
 
 	}

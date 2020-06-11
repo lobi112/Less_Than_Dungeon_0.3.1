@@ -73,11 +73,19 @@ void Begin_chapter_2()
 	}
 	Hero.refresh();
 
-	MyWeapon weapon1("Меч", 1, 10, 2, 5, 5, 20);
-	MyWeapon weapon2("Секира", 2, 25, 5,-10,-10, 15);
+	MyWeapon weapon1("Меч     ", 1, 10, 2, 5, 5, 20);
+	MyWeapon weapon2("Секира  ", 2, 25, 5,-10,-10, 15);
+	MyShield shield1("Баклер          ", 8, 5, 10);
+	MyShield shield2("Скутум          ", 50, 0, 50);
+	MyArmor  armor1 ("Кож. Броня      ", 6, 0, 30);
+	MyArmor  armor2 ("Куртка          ", 2, 0, 10);
+
 	Hero.item[0].create_item(weapon1);
 	Hero.item[1].create_item(weapon2);
-
+	Hero.item[2].create_item(shield1);
+	Hero.item[3].create_item(shield2);
+	Hero.item[4].create_item(armor1);
+	Hero.item[5].create_item(armor2);
 
 
 	//Загрузка карты

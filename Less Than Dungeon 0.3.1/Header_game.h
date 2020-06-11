@@ -83,13 +83,16 @@ public:
 	string item_name;
 	bool in_use;
 	int item_type;
+	int inventory_position;
 	MyItem()
 	{
+		item_type = 0;
 		in_use = 0;
 	}
 
 	void clear_item()
 	{
+		item_type = inventory_position = in_use = 0;
 		weapon_name = "Кулак";
 		weapon_damage = weapon_damage_dif = weapon_dodge = weapon_spead = weapon_cost = 0;
 		armor_name = "Лохмотья";
@@ -190,6 +193,11 @@ class MyHero: public  MyItem
 
 		EXP = 0;
 		next_lvl_exp = 100;
+
+		for (int i = 0; i < inventory_size; i++)
+		{
+			item[i].inventory_position = i;
+		}
 	}
 
 	int item_amount()
@@ -346,10 +354,10 @@ class MyHero: public  MyItem
 		}
 	}
 
-	/*~MyHero()
+	~MyHero()
 	{
 		delete[] item;
-	}*/
+	}
 
 };
 
