@@ -1,4 +1,0 @@
-Sword of power
-100 5
-Spear
-20 10

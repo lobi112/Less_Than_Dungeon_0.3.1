@@ -152,7 +152,11 @@ public:
 				cout << "Название :\t\t" << "Защита :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
 				cout << shield_name << "\t";
 				cout << shield_block << "\t\t";
-				cout << "+" << shield_dodge << "\t\t";
+				if (shield_dodge >= 0)
+				{
+					cout << "+";
+				}
+				cout << shield_dodge << "\t\t";
 				cout << shield_cost << "\t" << endl << endl;
 				break;
 			}
@@ -161,7 +165,11 @@ public:
 				cout << "Название :\t\t" << "Защита :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
 				cout << armor_name << "\t";
 				cout << armor_block << "\t\t";
-				cout << "+" << armor_dodge << "\t\t";
+				if (armor_dodge >= 0)
+				{
+					cout << "+";
+				}
+				cout << armor_dodge << "\t\t";
 				cout << armor_cost << "\t" << endl << endl;
 				break;
 			}
@@ -283,10 +291,10 @@ class MyHero: public  MyItem
 	{
 		armor  = base_armor + current_armor.armor_block;
 		shield = base_shield + current_item_left_hand.shield_block;
-		dodge  = base_dodge + current_armor.armor_dodge + current_item_left_hand.weapon_dodge + current_item_left_hand.shield_dodge + current_item_right_hand.weapon_dodge + current_item_two_handed.weapon_dodge;
-		spead = base_spead + current_item_left_hand.weapon_spead + current_item_right_hand.weapon_spead + current_item_two_handed.weapon_spead;
-		damage = base_damage + current_item_left_hand.weapon_damage + current_item_right_hand.weapon_damage;
-		damage_dif = current_item_left_hand.weapon_damage_dif + current_item_right_hand.weapon_damage_dif + current_item_two_handed.weapon_damage_dif;
+		dodge  = base_dodge  + current_armor.armor_dodge + current_item_left_hand.weapon_dodge + current_item_left_hand.shield_dodge + current_item_right_hand.weapon_dodge + current_item_two_handed.weapon_dodge;
+		spead =  base_spead  + current_item_left_hand.weapon_spead +    current_item_right_hand.weapon_spead +     current_item_two_handed.weapon_spead;
+		damage = base_damage + current_item_left_hand.weapon_damage + current_item_right_hand.weapon_damage + current_item_two_handed.weapon_damage;
+		damage_dif = current_item_left_hand.weapon_damage_dif + current_item_right_hand.weapon_damage_dif +   current_item_two_handed.weapon_damage_dif;
 		chest_unlock = base_chest_unlock;
 	}
 
@@ -321,7 +329,7 @@ class MyHero: public  MyItem
 				base_dodge = 30;
 				base_spead = 80;
 				base_magic = 2;
-				base_damage = 5;
+				base_damage = 3;
 				base_damage_dif = 2;
 				break;
 			}

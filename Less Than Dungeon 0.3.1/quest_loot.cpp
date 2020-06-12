@@ -1,12 +1,70 @@
 #include "Header_game.h"
+void ammunition_check(MyHero& Hero);
+void items_check(MyHero& Hero);
+
 template <typename T>
 void new_item(MyHero& Hero, T& new_item)
 {
+	int choice=0;
 	MyItem item;
 	item.create_item(new_item);
-	cout << "Вы нашли предмет: " << endl;
-	item.item_info();
-	_getch();
+	while (true)
+	{
+		system("cls");
+		cout << "Вы нашли предмет: " << endl;
+		item.item_info();
+		cout << "1)Взять" << endl;
+		cout << "2)Инвентарь" << endl;
+		cout << "3)Экипировка" << endl;
+		cout << "0)Оставить" << endl;
+		cout << Hero.name << " :";
+		cin >> choice;
+		switch (choice)
+		{
+			case 1:
+			{
+				if (Hero.item_amount() >= Hero.inventory_size)
+				{
+					cout << Hero.name << ": я больше не унесу!" << endl;
+					_getch();
+					continue;
+				}
+				for (int i = 0; i < Hero.inventory_size; i++)
+				{
+					if (Hero.item[i].item_type == 0)
+					{
+						Hero.item[i].create_item(new_item);
+						cout << "Предмет добавлен в инвентарь." << endl;
+						_getch();
+						break;
+					}
+
+				}
+				break;
+			}
+			case 2:
+			{
+				items_check(Hero);
+				continue;
+			}
+			case 3:
+			{
+				ammunition_check(Hero);
+				continue;
+			}
+			case 0:
+			{
+				break;
+			}
+			default:
+			{
+				cout << Hero.name << ": Надо уже решить, что с этим делать..." << endl;
+				_getch();
+				continue;
+			}
+		}
+		break;
+	}
 }
 
 void Quest_loot(MyHero& Hero, int loot_level, int loot_type)
@@ -69,6 +127,50 @@ void Quest_loot(MyHero& Hero, int loot_level, int loot_type)
 				}	
 				case 2: 
 				{
+					int chance = rand() % 10;
+					switch (chance)
+					{
+						case 0:
+						{
+							MyWeapon weapon("Малый топорик", 1, 7, 1, 0, 10, 15); new_item(Hero, weapon); break;
+						}
+						case 1:
+						{
+							MyWeapon weapon("Тупая булаба", 1, 11, 2, -10, -15, 18); new_item(Hero, weapon); break;
+						}
+						case 2:
+						{
+							MyWeapon weapon("Топор лесоруба", 2, 18, 2, -5, -15, 25); new_item(Hero, weapon); break;
+						}
+						case 3:
+						{
+							MyWeapon weapon("Короткий меч", 1, 9, 1, 0, 5, 20); new_item(Hero, weapon); break;
+						}
+						case 4:
+						{
+							MyWeapon weapon("Старая глефа", 2, 10, 2, 10, 10, 30); new_item(Hero, weapon); break;
+						}
+						case 5:
+						{
+							MyWeapon weapon("Короткий Фальшион", 1, 9, 2, 0, 0, 16); new_item(Hero, weapon); break;
+						}
+						case 6:
+						{
+							MyWeapon weapon("Зазубренный нож", 1, 6, 1, 5, 10, 14); new_item(Hero, weapon); break;
+						}
+						case 7:
+						{
+							MyWeapon weapon("Эльфийский нож", 1, 6, 1, 10, 30, 30); new_item(Hero, weapon); break;
+						}
+						case 8:
+						{
+							MyWeapon weapon("Орочий меч", 1, 10, 5, -10, -5, 12); new_item(Hero, weapon); break;
+						}
+						case 9:
+						{
+							MyWeapon weapon("Молот кузнеца", 2, 24, 4, -40, -40, 10); new_item(Hero, weapon); break;
+						}
+					}
 					break;
 				}
 				case 3:
@@ -95,24 +197,59 @@ void Quest_loot(MyHero& Hero, int loot_level, int loot_type)
 			{
 				case 1:
 				{
-					int chance = rand() % 10;
+					int chance = rand() % 5;
 					switch (chance)
 					{
-						case 0: break;
-						case 1: break;
-						case 2: break;
-						case 3: break;
-						case 4: break;
-						case 5: break;
-						case 6: break;
-						case 7: break;
-						case 8: break;
-						case 9: break;
+						case 0:
+						{
+							MyShield shield("Старый баклер   ", 4, -5, 8); new_item(Hero, shield); break;
+						}
+						case 1:
+						{
+							MyShield shield("Разбитый дерев. щит", 6, -15, 6); new_item(Hero, shield); break;
+						}
+						case 2:
+						{
+							MyShield shield("Погнутый бронз. щит", 6, -10, 10); new_item(Hero, shield); break;
+						}
+						case 3:
+						{
+							MyShield shield("Орочий дерев. щит", 8, -20, 12); new_item(Hero, shield); break;
+						}
+						case 4:
+						{
+							MyShield shield("Дубовая ветвь   ", 5, -5, 1); new_item(Hero, shield); break;
+						}
 					}
+					break;
 
 				}
 				case 2: 
 				{
+					int chance = rand() % 5;
+					switch (chance)
+					{
+						case 0:
+						{
+							MyShield shield("Простой баклер   ", 5, 5, 10); new_item(Hero, shield); break;
+						}
+						case 1:
+						{
+							MyShield shield("Малый гномий щит ", 10, -5, 20); new_item(Hero, shield); break;
+						}
+						case 2:
+						{
+							MyShield shield("Кожаный щит      ", 8, 0, 25); new_item(Hero, shield); break;
+						}
+						case 3:
+						{
+							MyShield shield("Большой дерев. щит", 14, -15, 22); new_item(Hero, shield); break;
+						}
+						case 4:
+						{
+							MyShield shield("Старый скутум    ", 12, -10, 20); new_item(Hero, shield); break;
+						}
+					}
 					break;
 				}
 				case 3: 
@@ -160,11 +297,35 @@ void Quest_loot(MyHero& Hero, int loot_level, int loot_type)
 						{
 							MyArmor armor("Бочёнок         ",   6, -30, 2); new_item(Hero, armor); break;
 						}
-
 					}
+					break;
 				}
 				case 2: 
 				{
+					int chance = rand() % 5;
+					switch (chance)
+					{
+						case 0:
+						{
+							MyArmor armor("Дешёвая кальчуга", 4, -5, 14); new_item(Hero, armor); break;
+						}
+						case 1:
+						{
+							MyArmor armor("Тонкая кож. Броня", 3, 0, 15); new_item(Hero, armor); break;
+						}
+						case 2:
+						{
+							MyArmor armor("Плащ вора       ", 1, 10, 10); new_item(Hero, armor); break;
+						}
+						case 3:
+						{
+							MyArmor armor("Железные обвески", 6, -15, 25); new_item(Hero, armor); break;
+						}
+						case 4:
+						{
+							MyArmor armor("Старая бронз. броня", 7, -10, 30); new_item(Hero, armor); break;
+						}
+					}
 					break;
 				}
 				case 3: 
@@ -185,7 +346,7 @@ void Quest_loot(MyHero& Hero, int loot_level, int loot_type)
 		//монеты
 		case 4:
 		{
-			cout << "Вы нашли мешочек с монетами: " << endl;
+			cout << "Вы нашли мешочек с монетами." << endl;
 			switch (loot_level)
 			{
 				case 1:
@@ -210,7 +371,7 @@ void Quest_loot(MyHero& Hero, int loot_level, int loot_type)
 				}
 				case 5:
 				{
-					chance = 50 + rand() % 40;
+					chance = 65 + rand() % 40;
 					break;
 				}
 			}

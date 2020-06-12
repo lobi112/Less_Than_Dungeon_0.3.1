@@ -51,6 +51,7 @@ void ammunition_check(MyHero& Hero)
 		cout << "2)Поменять предмет в левой руке." << endl;
 		cout << "3)Взять двуручный предмет." << endl;
 		cout << "4)Поменять броню." << endl;
+		cout << "5)Выбросить предмет." << endl;
 		cout << "0)Назад." << endl;
 		cout << Hero.name << ": ";
 		cin >> choice;
@@ -87,6 +88,7 @@ void ammunition_check(MyHero& Hero)
 					if ((choice < 0) || (choice > item_amount+1))
 					{
 						cout << Hero.name << "Я всё выгреб из рюкзака, честно" <<  endl;
+						_getch();
 						continue;
 					}
 
@@ -101,6 +103,7 @@ void ammunition_check(MyHero& Hero)
 						{
 							Hero.item[Hero.current_item_right_hand.inventory_position].in_use = false;
 							Hero.current_item_right_hand.clear_item();
+							Hero.refresh();
 							break;
 						}
 						else
@@ -176,6 +179,7 @@ void ammunition_check(MyHero& Hero)
 					if ((choice < 0) || (choice > item_amount+1))
 					{
 						cout << Hero.name << "Я всё выгреб, честно" << endl;
+						_getch();
 						continue;
 					}
 
@@ -190,6 +194,7 @@ void ammunition_check(MyHero& Hero)
 						{
 							Hero.item[Hero.current_item_left_hand.inventory_position].in_use = false;
 							Hero.current_item_left_hand.clear_item();
+							Hero.refresh();
 							break;
 						}
 						else
@@ -255,6 +260,7 @@ void ammunition_check(MyHero& Hero)
 					if ((choice < 0) || (choice > item_amount+1))
 					{
 						cout << Hero.name << "Я всё выгреб из рюкзака, честно" << endl;
+						_getch();
 						continue;
 					}
 
@@ -269,6 +275,7 @@ void ammunition_check(MyHero& Hero)
 						{
 							Hero.item[Hero.current_item_two_handed.inventory_position].in_use = false;
 							Hero.current_item_two_handed.clear_item();
+							Hero.refresh();
 							break;
 						}
 						else
@@ -337,6 +344,7 @@ void ammunition_check(MyHero& Hero)
 					if ((choice < 0) || (choice > item_amount+1))
 					{
 						cout << Hero.name << "Я всё выгреб из рюкзака, честно" << endl;
+						_getch();
 						continue;
 					}
 
@@ -351,6 +359,7 @@ void ammunition_check(MyHero& Hero)
 						{
 							Hero.item[Hero.current_armor.inventory_position].in_use = false;
 							Hero.current_armor.clear_item();
+							Hero.refresh();
 							break;
 						}
 						else
@@ -376,12 +385,83 @@ void ammunition_check(MyHero& Hero)
 				delete[] position;
 				continue;
 			}
+			case 5:
+			{
+				int item_amount = 0;
+				int *position = new int[Hero.inventory_size];
+
+				for (int i = 0; i < Hero.inventory_size; i++)
+				{
+					if (Hero.item[i].item_type == 1 && Hero.item[i].in_use == 0)
+					{
+						position[item_amount] = i;
+						item_amount++;
+					}
+				}
+				for (int i = 0; i < Hero.inventory_size; i++)
+				{
+					if (Hero.item[i].item_type == 2 && Hero.item[i].in_use == 0)
+					{
+						position[item_amount] = i;
+						item_amount++;
+					}
+				}
+				for (int i = 0; i < Hero.inventory_size; i++)
+				{
+					if (Hero.item[i].item_type == 3 && Hero.item[i].in_use == 0)
+					{
+						position[item_amount] = i;
+						item_amount++;
+					}
+				}
+				for (int i = 0; i < Hero.inventory_size; i++)
+				{
+					if (Hero.item[i].item_type == 4 && Hero.item[i].in_use == 0)
+					{
+						position[item_amount] = i;
+						item_amount++;
+					}
+				}
+
+				while (true)
+				{
+					system("cls");
+					cout << "Предметы в рюкзаке :" << endl << endl;
+					for (int i = 0; i < item_amount; i++)
+					{
+						switch (Hero.item[position[i]].item_type)
+						{
+						case 1: case 2: cout << i + 1 << ")" << Hero.item[position[i]].weapon_name << endl; break;
+						case 3:			cout << i + 1 << ")" << Hero.item[position[i]].shield_name << endl; break;
+						case 4:			cout << i + 1 << ")" << Hero.item[position[i]].armor_name  << endl; break;
+						}
+					}
+
+					cout << "0)Назад" << endl;
+					cout << Hero.name << ": ";
+					cin >> choice;
+					if ((choice < 0) || (choice >= item_amount + 1))
+					{
+						cout << Hero.name << "Я всё выгреб, честно" << endl;
+						_getch();
+						continue;
+					}
+
+					if (choice == 0)
+					{
+						break;
+					}
+					Hero.item[position[choice - 1]].clear_item();
+					break;
+				}
+				delete[] position;
+				continue;
+			}
 			case 0:
 			{
 				break;
 			}
 		}
-
 		break;
 	}
 
@@ -408,12 +488,12 @@ void items_check(MyHero& Hero)
 			cout << Hero.item[i].weapon_name << "\t";
 			(Hero.item[i].item_type == 1) ? cout << "Одноручное\t" : cout << "Двуручное\t";
 			cout << (Hero.item[i].weapon_damage - Hero.item[i].weapon_damage_dif) << "-" << (Hero.item[i].weapon_damage + Hero.item[i].weapon_damage_dif) << "\t";
-			if (Hero.item[i].weapon_spead > 0)
+			if (Hero.item[i].weapon_spead >= 0)
 			{
 				cout << "+";
 			}
 			cout << Hero.item[i].weapon_spead << "\t\t";
-			if (Hero.item[i].weapon_dodge > 0)
+			if (Hero.item[i].weapon_dodge >= 0)
 			{
 				cout << "+";
 			}
@@ -431,7 +511,11 @@ void items_check(MyHero& Hero)
 		{
 			cout << Hero.item[i].armor_name << "\t";
 			cout << Hero.item[i].armor_block << "\t\t";
-			cout << "+" << Hero.item[i].armor_dodge << "\t\t";
+			if (Hero.item[i].armor_dodge >= 0)
+			{
+				cout << "+";
+			}
+			cout << Hero.item[i].armor_dodge << "\t\t";
 			cout << Hero.item[i].armor_cost << "\t" << endl << endl;
 		}
 	}
@@ -444,7 +528,11 @@ void items_check(MyHero& Hero)
 		{
 			cout << Hero.item[i].shield_name << "\t";
 			cout << Hero.item[i].shield_block << "\t\t";
-			cout << "+" << Hero.item[i].shield_dodge << "\t\t";
+			if (Hero.item[i].shield_dodge >= 0)
+			{
+				cout << "+";
+			}
+			cout << Hero.item[i].shield_dodge << "\t\t";
 			cout << Hero.item[i].shield_cost << "\t" << endl << endl;
 		}
 	}

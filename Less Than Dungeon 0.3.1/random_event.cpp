@@ -6,7 +6,7 @@ void random_ivent(MyHero& Hero, int event, int terrain)
 
 	switch (event / 100)
 	{
-	case 1:
+		case 1:
 		{
 			int chance = rand() % 10;
 			switch (chance)
@@ -27,9 +27,13 @@ void random_ivent(MyHero& Hero, int event, int terrain)
 			}
 
 		}
+		case 2: 
+		{
+
+		}
 	}
 
-	switch (terrain)
+	/*switch (terrain)
 	{
 	case 80:  
 	case 84:  
@@ -51,6 +55,6 @@ void random_ivent(MyHero& Hero, int event, int terrain)
 	case 87:  
 	case 72:  
 	case 115: break;
-	}
+	}*/
 
 }

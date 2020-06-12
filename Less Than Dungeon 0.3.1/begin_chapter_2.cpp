@@ -2,7 +2,11 @@
 
 void ammunition_check(MyHero& Hero);
 void items_check(MyHero& Hero);
-void event_general_view(int area_event, int terrain);
+
+void area_general_view(int event, int terrain);
+void area_look_around(MyHero& Hero, int event, int terrain);
+void area_action(MyHero& Hero, int event, int terrain);
+
 void random_ivent(MyHero& Hero, int event, int terrain);
 
 const unsigned int MAP_SIZE_X = 20;
@@ -156,7 +160,7 @@ void Begin_chapter_2()
 			system("cls");
 
 			//Первая информация о месте
-			event_general_view( map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]) );
+			area_general_view(map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]));
 
 			cout << endl;
 			cout << "Север:  ";	location(static_cast<int>(map_terrain[Hero.position_x][Hero.position_y - 1]));
@@ -212,7 +216,7 @@ void Begin_chapter_2()
 									case 2: Hero.position_x += 1; break;
 									case 3: Hero.position_x -= 1; break;
 									case 4: Hero.position_y += 1; break;
-									default: cout << Hero.name << "Завёт дорога нас вперёд, в заманчивую даль..." << endl; _getch(); continue;
+									default: cout << Hero.name << "Зовёт дорога нас вперёд, в заманчивую даль..." << endl; _getch(); continue;
 								}
 						}
 						break;
@@ -224,31 +228,32 @@ void Begin_chapter_2()
 				//Осмотреться
 				case 2:
 				{
-					break;
+					continue;
 				}
 
 				//Действия в данном месте
 				case 3:
 				{
-					break;
+					area_action(Hero, map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]));
+					continue;
 				}
 
-				//Просмотр и настройка аммуниции
+				//Инвентарь
 				case 4:
 				{
 					items_check(Hero);
-					break;
+					continue;
 				}
-
+				//Просмотр и нстройка аммуниции
 				case 5:
 				{
 					ammunition_check(Hero);
-					break;
+					continue;
 				}
 
 				case 6:
 				{
-					break;
+					continue;
 				}
 
 				default: 
