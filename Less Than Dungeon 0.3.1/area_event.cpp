@@ -1,4 +1,5 @@
 #include "Header_game.h"
+
 void area_general_view(int event, int terrain)
 {
 	switch (terrain)
@@ -26,11 +27,29 @@ void area_general_view(int event, int terrain)
 
 void area_look_around(MyHero& Hero, int event, int terrain)
 {
+	system("cls");
 	switch (event % 100)
 	{
 		case 01:
 		{
-			cout << "Вы подходите к своему недавнему знакомому." << endl << endl;
+			cout << Hero.name << ": Конструкция портала видала лучшие дни. Если бы была необходимость ровно" << endl;
+			cout << "на этом месте возвести новый, готов поставить голову, реставрацией никто бы не занимался." << endl;
+			cout << "Хотя должен признать, место это настолько тихое, что никто наверно и не заподозрил" << endl;
+			cout << "в груде камней магическое сооружение." << endl;
+			_getch();
+			break;
+		}
+		case 02:
+		{
+			cout << "Надписи на указателе:" << endl;
+			cout << "Север - г. Крэит." << endl;
+			cout << "Запад - г. Брагос." << endl;
+			cout << "Восток - Берегись, путник! Дикие земли!." << endl << endl;
+			cout << "Чуть ниже прибита другая, явно свежая надпись:" << endl;
+			cout << "г. Крэит. Таверна Бурого Волка ждёт путников!" << endl;
+			cout << "Уютные комнаты и согревающие блюда по доступным ценам!" << endl;
+			_getch();
+			break;
 		}
 
 	}
@@ -139,7 +158,7 @@ void area_action(MyHero& Hero, int event, int terrain)
 					}
 					case 2:
 					{
-						cout << Hero.name << ": " << "Не, эта развалина уже никакого интереса не представляет." << endl;
+						cout << Hero.name << ": " << "Нет, эта развалина уже никакого интереса не представляет." << endl;
 						cout << "Удивительно, как она вообще смогла меня телепортировать." << endl;
 						_getch();
 						cout << Hero.name << ": " << "Хорошо хоть я живым выбрался..." << endl;
@@ -152,7 +171,14 @@ void area_action(MyHero& Hero, int event, int terrain)
 					}
 					default: cout << Hero.name << ": " << "Стоит ли мне тут задерживаться?" << endl; _getch(); continue;
 				}
+				break;
 			}
+
+			break;
+		}
+		case 2:
+		{
+
 		}
 
 	}

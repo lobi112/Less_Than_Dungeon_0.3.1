@@ -6,26 +6,26 @@ void ammunition_check(MyHero& Hero)
 
 	while (true) {
 		system("cls");
-		cout << "Здоровье : " << Hero.HP << "/" << Hero.max_HP << endl;
+		cout << "Здоровье  : " << Hero.HP << "/" << Hero.max_HP << endl;
 		cout << "Урон      : " << Hero.damage - Hero.base_damage_dif << "-"<< Hero.damage + Hero.base_damage_dif << endl;
 		cout << "Броня     : " << Hero.armor << endl;
-		cout << "Щит       : " << Hero.shield << endl;
+		cout << "Блок      : " << Hero.shield << endl;
 		cout << "Уклонение : " << Hero.dodge << endl;
-		cout << "Скорость  : " << Hero.spead << endl << endl;
+		cout << "Скорость  : " << Hero.speed << endl << endl;
 
 		if (Hero.current_item_right_hand.item_type == 1)
 		{
 			cout << "Оружие в правой руке : " << Hero.current_item_right_hand.weapon_name << endl;
 			cout << "Урон оружием : " << (Hero.current_item_right_hand.weapon_damage - Hero.current_item_right_hand.weapon_damage_dif) << "-" << (Hero.current_item_right_hand.weapon_damage + Hero.current_item_right_hand.weapon_damage_dif) << endl;
 			cout << "Уклонение : "; if (Hero.current_item_right_hand.weapon_dodge >= 0) { cout << "+"; } cout << Hero.current_item_right_hand.weapon_dodge << endl;
-			cout << "Скорость : "; if (Hero.current_item_right_hand.weapon_spead >= 0) { cout << "+"; } cout << Hero.current_item_right_hand.weapon_spead << endl << endl;
+			cout << "Скорость : "; if (Hero.current_item_right_hand.weapon_speed >= 0) { cout << "+"; } cout << Hero.current_item_right_hand.weapon_speed << endl << endl;
 		}
 		if (Hero.current_item_left_hand.item_type == 1)
 		{
 			cout << "Оружие в левой руке : " << Hero.current_item_left_hand.weapon_name << endl;
 			cout << "Урон оружием : " << (Hero.current_item_left_hand.weapon_damage - Hero.current_item_left_hand.weapon_damage_dif) << "-" << (Hero.current_item_left_hand.weapon_damage + Hero.current_item_left_hand.weapon_damage_dif) << endl;
 			cout << "Уклонение : "; if (Hero.current_item_left_hand.weapon_dodge >= 0) { cout << "+"; } cout << Hero.current_item_left_hand.weapon_dodge << endl;
-			cout << "Скорость : "; if (Hero.current_item_left_hand.weapon_spead >= 0) { cout << "+"; } cout << Hero.current_item_left_hand.weapon_spead << endl << endl;
+			cout << "Скорость : "; if (Hero.current_item_left_hand.weapon_speed >= 0) { cout << "+"; } cout << Hero.current_item_left_hand.weapon_speed << endl << endl;
 		}
 		else if (Hero.current_item_left_hand.item_type == 3)
 		{
@@ -38,7 +38,7 @@ void ammunition_check(MyHero& Hero)
 			cout << "Оружие в двух руках : " << Hero.current_item_two_handed.weapon_name << endl;
 			cout << "Урон оружием : " << (Hero.current_item_two_handed.weapon_damage - Hero.current_item_two_handed.weapon_damage_dif) << "-" << (Hero.current_item_two_handed.weapon_damage + Hero.current_item_two_handed.weapon_damage_dif) << endl;
 			cout << "Уклонение : "; if (Hero.current_item_two_handed.weapon_dodge >= 0) { cout << "+"; } cout << Hero.current_item_two_handed.weapon_dodge << endl;
-			cout << "Скорость : "; if (Hero.current_item_two_handed.weapon_spead >= 0) { cout << "+"; } cout << Hero.current_item_two_handed.weapon_spead << endl << endl;
+			cout << "Скорость : "; if (Hero.current_item_two_handed.weapon_speed >= 0) { cout << "+"; } cout << Hero.current_item_two_handed.weapon_speed << endl << endl;
 		}
 		if (Hero.current_armor.item_type == 4)
 		{
@@ -474,25 +474,32 @@ void items_check(MyHero& Hero)
 	cout << "Класс : " << Hero.class_name << endl;
 	cout << "Здоровье : " << Hero.HP << "/" << Hero.max_HP << endl << endl;	
 
-	cout << "Золото   : " << Hero.gold << endl;
+	cout << "Золото        : " << Hero.gold << endl;
 	cout << "Зелья лечения : " << Hero.potion << endl;
 	cout << "Отмычки       : " << Hero.picklock << endl << endl;
 
 	cout << "Слоты для предметов : " << "( " << Hero.item_amount(); cout << "/" << Hero.inventory_size << " )" << endl << endl;
 	cout << "Оружие :" << endl;
-	cout << "Название :\t" << "Тип :\t\t" << "Урон :\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :" << endl << endl;
+	cout << "Название :\t\t" << "Тип :\t\t" <<"Стиль : \t" << "Урон :\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :" << endl << endl;
 	for (int i = 0; i < Hero.inventory_size; i++)
 	{
 		if ((Hero.item[i].item_type == 1) || (Hero.item[i].item_type == 2))
 		{
 			cout << Hero.item[i].weapon_name << "\t";
 			(Hero.item[i].item_type == 1) ? cout << "Одноручное\t" : cout << "Двуручное\t";
+			switch (Hero.item[i].weapon_style)
+			{
+				case 0: cout << "Обычное \t"; break;
+				case 1: cout << "Быстрое \t"; break;
+				case 2: cout << "Тяжёлое \t"; break;
+			}
+			
 			cout << (Hero.item[i].weapon_damage - Hero.item[i].weapon_damage_dif) << "-" << (Hero.item[i].weapon_damage + Hero.item[i].weapon_damage_dif) << "\t";
-			if (Hero.item[i].weapon_spead >= 0)
+			if (Hero.item[i].weapon_speed >= 0)
 			{
 				cout << "+";
 			}
-			cout << Hero.item[i].weapon_spead << "\t\t";
+			cout << Hero.item[i].weapon_speed << "\t\t";
 			if (Hero.item[i].weapon_dodge >= 0)
 			{
 				cout << "+";
@@ -504,13 +511,18 @@ void items_check(MyHero& Hero)
 	}
 	cout << endl;
 	cout << "Одежда/Доспехи :" << endl;
-	cout << "Название :\t\t" << "Защита :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
+	cout << "Название :\t\t" << "Защита :\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
 	for (int i = 0; i < Hero.inventory_size; i++)
 	{
 		if (Hero.item[i].item_type == 4)
 		{
 			cout << Hero.item[i].armor_name << "\t";
 			cout << Hero.item[i].armor_block << "\t\t";
+			if (Hero.item[i].armor_speed >= 0)
+			{
+				cout << "+";
+			}
+			cout << Hero.item[i].armor_speed << "\t\t";
 			if (Hero.item[i].armor_dodge >= 0)
 			{
 				cout << "+";
@@ -521,13 +533,18 @@ void items_check(MyHero& Hero)
 	}
 	cout << endl;
 	cout << "Щиты :" << endl;
-	cout << "Название :\t\t" << "Защита :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
+	cout << "Название :\t\t" << "Блок :\t\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :\t" << endl << endl;
 	for (int i = 0; i < Hero.inventory_size; i++)
 	{
 		if (Hero.item[i].item_type == 3)
 		{
 			cout << Hero.item[i].shield_name << "\t";
 			cout << Hero.item[i].shield_block << "\t\t";
+			if (Hero.item[i].shield_speed >= 0)
+			{
+				cout << "+";
+			}
+			cout << Hero.item[i].shield_speed << "\t\t";
 			if (Hero.item[i].shield_dodge >= 0)
 			{
 				cout << "+";

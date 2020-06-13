@@ -12,7 +12,7 @@ void LeaderboardF();
 
 void main()
 {
-
+	system("mode con cols=120 lines=30");
 	setlocale(LC_ALL, "Russian");
 	srand(time(NULL));
 

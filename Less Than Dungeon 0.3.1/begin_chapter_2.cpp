@@ -78,12 +78,12 @@ void Begin_chapter_2()
 	}
 	Hero.refresh();
 
-	MyWeapon weapon1("Меч     ", 1, 10, 2, 5, 5, 20);
-	MyWeapon weapon2("Секира  ", 2, 25, 5,-10,-10, 15);
-	MyShield shield1("Баклер          ", 8, 5, 10);
-	MyShield shield2("Скутум          ", 50, 0, 50);
-	MyArmor  armor1 ("Кож. Броня      ", 6, 0, 30);
-	MyArmor  armor2 ("Куртка          ", 2, 0, 10);
+	MyWeapon weapon1("Меч     \t", 1, 0, 10, 2, 5, 5, 20);
+	MyWeapon weapon2("Секира  \t", 2, 2, 25, 5,-10,-10, 15);
+	MyShield shield1("Баклер  \t", 8, 5, 0, 10);
+	MyShield shield2("Скутум  \t", 14, -10, -5, 50);
+	MyArmor  armor1 ("Кож. Броня      ", 6, 0, 5, 30);
+	MyArmor  armor2 ("Куртка  \t", 2, 0, 5, 10);
 
 	Hero.item[0].create_item(weapon1);
 	Hero.item[1].create_item(weapon2);
@@ -136,15 +136,14 @@ void Begin_chapter_2()
 		chance = rand() % 100;
 		switch (map_event[Hero.position_x][Hero.position_y] / 100)
 		{
-			case 6: if (chance > 5)  break;
+			case 1: if (chance > 5)  break;
 			case 2: if (chance > 10) break;
 			case 3: if (chance > 20) break;
 			case 4: if (chance > 40) break;
 			case 5: if (chance > 60) break;
-			case 1: if (chance > 80) break;
+			case 6: if (chance > 80) break;
 			default : random_ivent(	Hero, map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y])); break;
 		}
-
 
 		if (Hero.HP < 0)
 		{
@@ -152,8 +151,6 @@ void Begin_chapter_2()
 			system("pause");
 			break;
 		}
-
-		
 		
 		while (true)
 		{
@@ -174,10 +171,8 @@ void Begin_chapter_2()
 			cout << "3)Действия" << endl;
 			cout << "4)Инвентарь" << endl;
 			cout << "5)Экипировка" << endl;	
-			cout << "6)Информация о герое" << endl;
 			cout << "0)Сдаться" << endl;
-			cout << Hero.name << ": ";
-			cin >> choice;
+			cout << Hero.name << ": "; cin >> choice;
 			switch (choice)
 			{
 				//Движение
@@ -228,6 +223,7 @@ void Begin_chapter_2()
 				//Осмотреться
 				case 2:
 				{
+					area_look_around(Hero, map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]));
 					continue;
 				}
 
@@ -248,11 +244,6 @@ void Begin_chapter_2()
 				case 5:
 				{
 					ammunition_check(Hero);
-					continue;
-				}
-
-				case 6:
-				{
 					continue;
 				}
 
