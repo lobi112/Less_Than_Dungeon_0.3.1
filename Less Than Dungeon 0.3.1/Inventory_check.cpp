@@ -1,13 +1,14 @@
 #include "Header_game.h"
 
-void ammunition_check(MyHero& Hero)
+bool ammunition_check(MyHero& Hero, bool in_fight)
 {
 	int choice;
+	bool change = false;
 
 	while (true) {
 		system("cls");
 		cout << "Здоровье  : " << Hero.HP << "/" << Hero.max_HP << endl;
-		cout << "Урон      : " << Hero.damage - Hero.base_damage_dif << "-"<< Hero.damage + Hero.base_damage_dif << endl;
+		cout << "Урон      : " << Hero.damage - Hero.damage_dif << "-"<< Hero.damage + Hero.damage_dif << endl;
 		cout << "Броня     : " << Hero.armor << endl;
 		cout << "Блок      : " << Hero.shield << endl;
 		cout << "Уклонение : " << Hero.dodge << endl;
@@ -104,6 +105,7 @@ void ammunition_check(MyHero& Hero)
 							Hero.item[Hero.current_item_right_hand.inventory_position].in_use = false;
 							Hero.current_item_right_hand.clear_item();
 							Hero.refresh();
+							change = true;
 							break;
 						}
 						else
@@ -129,6 +131,7 @@ void ammunition_check(MyHero& Hero)
 					Hero.current_item_right_hand = Hero.item[position[choice - 2]];
 					
 					Hero.refresh();
+					change = true;
 					break;
 				}
 
@@ -195,6 +198,7 @@ void ammunition_check(MyHero& Hero)
 							Hero.item[Hero.current_item_left_hand.inventory_position].in_use = false;
 							Hero.current_item_left_hand.clear_item();
 							Hero.refresh();
+							change = true;
 							break;
 						}
 						else
@@ -221,6 +225,7 @@ void ammunition_check(MyHero& Hero)
 					
 
 					Hero.refresh();
+					change = true;
 					break;
 				}
 
@@ -276,6 +281,7 @@ void ammunition_check(MyHero& Hero)
 							Hero.item[Hero.current_item_two_handed.inventory_position].in_use = false;
 							Hero.current_item_two_handed.clear_item();
 							Hero.refresh();
+							change = true;
 							break;
 						}
 						else
@@ -307,6 +313,7 @@ void ammunition_check(MyHero& Hero)
 					Hero.current_item_two_handed = Hero.item[position[choice - 2]];
 					
 					Hero.refresh();
+					change = true;
 					break;
 				}
 
@@ -316,6 +323,12 @@ void ammunition_check(MyHero& Hero)
 			}
 			case 4:
 			{
+				if (in_fight)
+				{
+					cout << "Во время доя нельзя поменять броню." << endl;
+					_getch();
+					continue;
+				}
 				int item_amount = 0;
 				int *position = new int[Hero.inventory_size];
 
@@ -387,6 +400,12 @@ void ammunition_check(MyHero& Hero)
 			}
 			case 5:
 			{
+				if (in_fight)
+				{
+					cout << "Во время боя нельзя выбрасывать предметы." << endl;
+					_getch();
+					continue;
+				}
 				int item_amount = 0;
 				int *position = new int[Hero.inventory_size];
 
@@ -465,6 +484,7 @@ void ammunition_check(MyHero& Hero)
 		break;
 	}
 
+	return change;
 }
 
 void items_check(MyHero& Hero)

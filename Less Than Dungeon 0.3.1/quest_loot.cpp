@@ -1,5 +1,5 @@
 #include "Header_game.h"
-void ammunition_check(MyHero& Hero);
+bool ammunition_check(MyHero& Hero, bool in_fight);
 void items_check(MyHero& Hero);
 
 template <typename T>
@@ -49,7 +49,7 @@ void new_item(MyHero& Hero, T& new_item)
 			}
 			case 3:
 			{
-				ammunition_check(Hero);
+				ammunition_check(Hero, 0);
 				continue;
 			}
 			case 0:

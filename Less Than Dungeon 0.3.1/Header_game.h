@@ -423,6 +423,30 @@ class MyHero: public  MyItem
 		}
 	}
 
+	void take_damage(int damage, bool block)
+	{
+		switch (block)
+		{
+		case 0:
+		{
+			(damage - armor < 0) ? damage = 0 : damage -= armor;
+		}
+		case 1:
+		{	cout << "Вы блокируете атаку." << endl;
+			_getch();
+			(damage - armor - block < 0) ? damage = 0 : damage -= (armor + block);
+		}
+		}
+		cout << "Противник нанёс вам " << damage;
+		switch (damage)
+		{
+			case 1: cout << " урон." << endl; break;
+			default: cout << " урона." << endl; break;
+		}
+		_getch();
+		(HP - damage < 0) ? HP = 0 : HP -= damage;
+	}
+
 	~MyHero()
 	{
 		delete[] item;
@@ -438,22 +462,27 @@ public:
 	string name;
 
 	int HP;
+	int max_HP;
 	int armor;
 	int shield;
 	int dodge; //шанс уворота
-	int block; //шанс блока
 	int speed; //шанс попадания (обычная атака), тяжёлая атака режит шанс вдвое, быстрая увеличивает вдвое;
 	int damage;
 	int damage_dif;
 	int attack_tactic;
 	int defense_tactic;
-
-	int pay_off_cost;
+	
+	bool pay_off_possibility;
+	int  pay_off_chance;
+	int  pay_off_cost;
+	
 
 	bool run_away_possibility;
-	bool pay_off_possibility;
+	int  run_away_chance;
+	
 	MyEnemy(int enemy_type, int enemy_ind)
 	{
+		type = enemy_type;
 		switch (enemy_type)
 		{
 			case 0:
@@ -462,21 +491,64 @@ public:
 				{
 					case 0:
 					{
+						name = "Одичалый пёс";
+						HP = max_HP = 6 + rand() % 5;
+						armor = 0;
+						shield = 1;
+						dodge = 25;
+						speed = 80;
+						damage = 3;
+						damage_dif = 1;
+						attack_tactic = 0;
+						defense_tactic = 0;
+
+						pay_off_possibility = false;
+
+						run_away_possibility = true;
+						run_away_chance = 50;
+						break;
+					}
+					case 1:
+					{
+						name = "Вепрь";
+						HP = max_HP = 20 + rand() % 6;
+						armor = 0;
+						shield = 3;
+						dodge = 20;
+						speed = 60;
+						damage = 5;
+						damage_dif = 2;
+						attack_tactic = 2;
+						defense_tactic = 0;
+
+						pay_off_possibility = false;
+
+						run_away_possibility = true;
+						run_away_chance = 50;
+						break;
+					}
+					case 2:
+					{
 						name = "Волк";
-						HP = 15+ rand()%6;
+						HP = max_HP = 15+ rand()%6;
 						armor = 0;
 						shield = 2;
-						dodge = 40;
+						dodge = 60;
 						speed = 90;
 						damage = 6;
 						damage_dif = 2;
 						attack_tactic = 1;
 						defense_tactic = 1;
+
+						pay_off_possibility = false;
+
+						run_away_possibility = false;
+						break;
 					}
-					case 1:
+					case 3:
 					{
-						name = "Волк";
-						HP = 30 + rand() % 6;
+						name = "Медведь";
+						HP = max_HP = 35 + rand() % 11;
 						armor = 0;
 						shield = 2;
 						dodge = 20;
@@ -485,10 +557,107 @@ public:
 						damage_dif = 3;
 						attack_tactic = 2;
 						defense_tactic = 2;
+
+						pay_off_possibility = false;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+						break;
 					}
 				}
 			}
-			case 1: break;
+			case 1:
+			{
+				switch (enemy_ind)
+				{
+					case 0:
+					{
+						name = "Гоблин";
+						HP = max_HP = 15 + rand() % 6;
+						damage = 5;
+						damage_dif = 1;
+						speed = 90;
+						dodge = 30;
+						armor = 0;
+						shield = 1;
+						
+						attack_tactic = 1;
+						defense_tactic = 1;
+
+						pay_off_possibility = true;
+						pay_off_chance = 40;
+						pay_off_cost = 10 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+						break;
+					}
+					case 1:
+					{
+						name = "Гоблин Воин";
+						HP = max_HP = 15 + rand() % 6;
+						damage = 7 + rand() % 3;
+						damage_dif = 1 + rand() % 2;
+						speed = 80;
+						dodge = 20;
+						armor = 2 +rand() % 2;
+						shield = 2 + rand() % 2;
+
+						attack_tactic = 1;
+						defense_tactic = 1;
+
+						pay_off_possibility = true;
+						pay_off_chance = 40;
+						pay_off_cost = 10 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+					}
+					case 2:
+					{
+						name = "Гоблин Убийца";
+						HP = max_HP = 15 + rand() % 6;
+						damage = 7 + rand() % 3;
+						damage_dif = 1;
+						speed = 90;
+						dodge = 35;
+						armor = 1;
+						shield = 1;
+
+						attack_tactic = 1;
+						defense_tactic = 1;
+
+						pay_off_possibility = true;
+						pay_off_chance = 40;
+						pay_off_cost = 10 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+					}
+					case 3:
+					{
+						name = "Гоблин Разбойник";
+						HP = max_HP = 15 + rand() % 6;
+						damage = 5 + rand() % 2;
+						damage_dif = 1;
+						speed = 90;
+						dodge = 35;
+						armor = 1;
+						shield = 1;
+
+						attack_tactic = 1;
+						defense_tactic = 1;
+
+						pay_off_possibility = true;
+						pay_off_chance = 40;
+						pay_off_cost = 10 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+					}
+				}
+				break;
+			}
 			case 2: break;
 			case 3: break;
 			case 4: break;
@@ -498,7 +667,6 @@ public:
 
 	void take_damage(int damage, bool block)
 	{
-		(damage - armor < 0) ? damage = 0 : damage -= armor;
 		switch (block)
 		{
 			case 0:
@@ -507,17 +675,20 @@ public:
 			}
 			case 1: 
 			{
+				cout << "Противник блокирует атаку." << endl;
+				_getch();
 				(damage - armor - block < 0) ? damage = 0 : damage -= (armor + block);
 			}
 		}
-		cout << "Вы нанесли " << damage << " урона." << endl;
-		(HP - damage < 0) ? HP = 0 : HP -= armor;
+		cout << "Вы нанесли " << damage;
+		switch (damage)
+		{
+			case 1: cout << " урон." << endl; break;
+			default: cout << " урона." << endl; break;
+		}
+		_getch();
+		(HP - damage < 0) ? HP = 0 : HP -= damage;
 	}
-};
-
-class Enemy_Basic
-{
-
 };
 
 struct Leaderboard {

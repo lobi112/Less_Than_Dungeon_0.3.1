@@ -1,6 +1,6 @@
 #include "Header_game.h"
 
-void ammunition_check(MyHero& Hero);
+bool ammunition_check(MyHero& Hero, bool in_fight);
 void items_check(MyHero& Hero);
 
 void area_general_view(int event, int terrain);
@@ -8,6 +8,7 @@ void area_look_around(MyHero& Hero, int event, int terrain);
 void area_action(MyHero& Hero, int event, int terrain);
 
 void random_ivent(MyHero& Hero, int event, int terrain);
+void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind);
 
 const unsigned int MAP_SIZE_X = 20;
 const unsigned int MAP_SIZE_Y = 20;
@@ -91,6 +92,8 @@ void Begin_chapter_2()
 	Hero.item[3].create_item(shield2);
 	Hero.item[4].create_item(armor1);
 	Hero.item[5].create_item(armor2);
+
+	quest_enemy(Hero, 0, 2);
 
 
 	//Загрузка карты
@@ -243,7 +246,7 @@ void Begin_chapter_2()
 				//Просмотр и нстройка аммуниции
 				case 5:
 				{
-					ammunition_check(Hero);
+					ammunition_check(Hero, 0);
 					continue;
 				}
 
