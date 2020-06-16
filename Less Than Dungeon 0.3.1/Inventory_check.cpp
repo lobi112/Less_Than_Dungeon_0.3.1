@@ -494,9 +494,10 @@ void items_check(MyHero& Hero)
 	cout << "Класс : " << Hero.class_name << endl;
 	cout << "Здоровье : " << Hero.HP << "/" << Hero.max_HP << endl << endl;	
 
-	cout << "Золото        : " << Hero.gold << endl;
-	cout << "Зелья лечения : " << Hero.potion << endl;
-	cout << "Отмычки       : " << Hero.picklock << endl << endl;
+	cout << "Золото            : " << Hero.gold << endl;
+	cout << "Зелья лечения (М) : " << Hero.heal_potion_s << endl;
+	cout << "Зелья лечения (Б) : " << Hero.heal_potion_l << endl;
+	cout << "Отмычки           : " << Hero.picklock << endl << endl;
 
 	cout << "Слоты для предметов : " << "( " << Hero.item_amount(); cout << "/" << Hero.inventory_size << " )" << endl << endl;
 	cout << "Оружие :" << endl;

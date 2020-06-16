@@ -290,7 +290,7 @@ void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind)
 	int chance;
 	int choice;
 	bool flag = false;
-	bool fight_trig = false;
+	bool fight_trig = true;
 	MyEnemy Enemy(enemy_type, enemy_ind);
 
 	system("cls");
@@ -298,6 +298,7 @@ void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind)
 	if (Enemy.pay_off_possibility == true)
 	{
 		cout << "Попробовать откупиться от врага ? (" << Enemy.pay_off_cost << " монет)" << endl;
+		cout << "Ваши деньги : " << Hero.gold << endl << endl;
 		cout << "1)Да" << endl;
 		cout << "2)Нет" << endl;
 		cout << Hero.name << ": ";
@@ -306,12 +307,38 @@ void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind)
 		{
 			case 1:
 			{
-
+				chance = rand() % 100;
+				if (Hero.gold < Enemy.pay_off_cost)
+				{
+					flag = true;
+					cout << Hero.name << ": Эх, дырявые мои карманы... Мне не хватает денег!" << endl;
+					cout << "Противник атакует." << endl;
+					_getch();
+					break;
+				}
+				if (chance < Enemy.pay_off_chance)
+				{
+					fight_trig = false;
+					Hero.gold -= Enemy.pay_off_cost;
+					cout << "Вы откуписись, отдав " << Enemy.pay_off_cost;
+					switch (Enemy.pay_off_cost%10)
+					{
+						case 1: cout << " монету" << endl; break;
+						case 2: case 3: case 4: cout << " монеты" << endl; break;
+						default: cout << " монет" << endl;
+					}
+					_getch();
+				}
+				else
+				{
+					flag = true;
+					cout << "Звон монет не переубедил противника, и он атакует!" << endl;
+					_getch();
+				}
 				break;
 			}
 			case 2:
 			{
-				fight_trig++;
 				break;
 			}
 			default:
@@ -324,27 +351,12 @@ void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind)
 	else 
 	{
 		cout << "Противник атакует незамедлительно!" << endl;
+		_getch();
 	}
-	
-	cin >> choice;
-	switch (choice)
-	{
-		case 1:
-		{
-			break;
-		}
-		case 2:
-		{
-			fight_trig++;
-			break;
-		}
-		default:
-		{
-			cout << "Враг оказался не таким терпеливым. К бою!" << endl;
-			_getch();
-		}
-	}
-		//Главный цикл боя
+
+
+
+	//Главный цикл боя
 	while (Enemy.HP > 0 && Hero.HP > 0 && fight_trig == 1)
 	{
 		if (Hero.HP <= 0)
@@ -449,7 +461,8 @@ void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind)
 				case 2:
 				{
 					system("cls");
-					cout << "1)Выпить зелье здоровья (" << Hero.potion << ")" << endl;
+					cout << "1)Выпить зелье здоровья (М) (" << Hero.heal_potion_s << ")" << endl;
+					cout << "2)Выпить зелье здоровья (Б) (" << Hero.heal_potion_l << ")" << endl;
 
 					_getch();
 					continue;

@@ -17,7 +17,6 @@ void main()
 	srand(time(NULL));
 
 	int controller_menu = 1;
-
 	while (controller_menu != 0)
 	{
 		system("cls");

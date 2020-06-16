@@ -9,6 +9,7 @@ void area_action(MyHero& Hero, int event, int terrain);
 
 void random_ivent(MyHero& Hero, int event, int terrain);
 void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind);
+void quest_traider(MyHero& Hero, int traider_type, int trairer_level);
 
 const unsigned int MAP_SIZE_X = 20;
 const unsigned int MAP_SIZE_Y = 20;
@@ -85,7 +86,8 @@ void Begin_chapter_2()
 	MyShield shield2("Скутум  \t", 14, -10, -5, 50);
 	MyArmor  armor1 ("Кож. Броня      ", 6, 0, 5, 30);
 	MyArmor  armor2 ("Куртка  \t", 2, 0, 5, 10);
-
+	
+	//тестовая зона/////////////////////////////////////////////////
 	Hero.item[0].create_item(weapon1);
 	Hero.item[1].create_item(weapon2);
 	Hero.item[2].create_item(shield1);
@@ -93,8 +95,10 @@ void Begin_chapter_2()
 	Hero.item[4].create_item(armor1);
 	Hero.item[5].create_item(armor2);
 
-	quest_enemy(Hero, 0, 2);
 
+	//quest_enemy(Hero, 0, 2);
+	quest_traider(Hero, 0, 0);
+	////////////////////////////////////////////////////////////////
 
 	//Загрузка карты
 	char map_terrain[MAP_SIZE_X][MAP_SIZE_Y];
@@ -147,17 +151,17 @@ void Begin_chapter_2()
 			case 6: if (chance > 80) break;
 			default : random_ivent(	Hero, map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y])); break;
 		}
-
-		if (Hero.HP < 0)
-		{
-			cout << "Погибель настигла вас, вы ушли во тьму..." << endl;
-			system("pause");
-			break;
-		}
 		
 		while (true)
 		{
 			system("cls");
+
+			if (Hero.HP <= 0)
+			{
+				cout << "Погибель настигла вас, вы ушли во тьму..." << endl;
+				_getch();
+				break;
+			}
 
 			//Первая информация о месте
 			area_general_view(map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y]));
@@ -248,6 +252,28 @@ void Begin_chapter_2()
 				{
 					ammunition_check(Hero, 0);
 					continue;
+				}
+
+				case 0:
+				{
+					while (true)
+					{
+						system("cls");
+						cout << "Вы уверены, что хотите сдаться?" << endl << endl;
+						cout << "1)Да" << endl;
+						cout << "2)Нет" << endl;
+						cout << Hero.name << ": "; cin >> choice;
+						switch (choice)
+						{
+							case 1: Hero.HP = 0; break;
+							case 2: break;
+							default: cout << "Передумали ?" << endl; _getch; continue;
+						}
+						break;
+
+					}
+					break;
+
 				}
 
 				default: 

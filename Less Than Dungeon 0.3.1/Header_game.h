@@ -234,13 +234,14 @@ class MyHero: public  MyItem
 	int position_x, position_y;
 	int weapon_hold_type = 1;
 
-	int potion = 0;
+	int heal_potion_s = 0;
+	int heal_potion_l = 0;
 	int gold = 0;
 	int picklock = 0;
 
 	int inventory_size = 10;
-	//vector<MyItem> item = vector<MyItem>(4);
-	MyItem *item = new MyItem[inventory_size];
+	vector<MyItem> item = vector<MyItem>(inventory_size);
+	//MyItem *item = new MyItem[inventory_size];
 
 	MyItem current_item_right_hand;
 	MyItem current_item_left_hand;
@@ -338,6 +339,7 @@ class MyHero: public  MyItem
 				base_magic = 2;
 				base_damage = 5;
 				base_damage_dif = 2;
+				gold = 100;
 				break;
 			}
 
@@ -449,7 +451,7 @@ class MyHero: public  MyItem
 
 	~MyHero()
 	{
-		delete[] item;
+		//delete[] item;
 	}
 
 };
