@@ -4,6 +4,7 @@
 #include <string>
 #include <locale>
 #include <windows.h>
+#include <conio.h>
 #include <fstream>
 using namespace std;
 //void Begin_chapter_1();
@@ -12,7 +13,7 @@ void LeaderboardF();
 
 void main()
 {
-	system("mode con cols=120 lines=30");
+	system("mode con cols=120 lines=36");
 	setlocale(LC_ALL, "Russian");
 	srand(time(NULL));
 
@@ -69,7 +70,7 @@ void main()
 			}
 			updates_in.close();
 			cout << "" << endl;
-			system("pause");
+			_getch();
 			system("cls");
 		}
 

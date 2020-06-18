@@ -9,7 +9,7 @@ void area_action(MyHero& Hero, int event, int terrain);
 
 void random_ivent(MyHero& Hero, int event, int terrain);
 void quest_enemy(MyHero& Hero, int enemy_type, int enemy_ind);
-void quest_traider(MyHero& Hero, int traider_type, int trairer_level);
+void quest_trader(MyHero& Hero, int traider_type, int trairer_level);
 
 const unsigned int MAP_SIZE_X = 20;
 const unsigned int MAP_SIZE_Y = 20;
@@ -80,24 +80,27 @@ void Begin_chapter_2()
 	}
 	Hero.refresh();
 
+	
+	
+	//тестовая зона/////////////////////////////////////////////////
+
 	MyWeapon weapon1("Меч     \t", 1, 0, 10, 2, 5, 5, 20);
 	MyWeapon weapon2("Секира  \t", 2, 2, 25, 5,-10,-10, 15);
 	MyShield shield1("Баклер  \t", 8, 5, 0, 10);
-	MyShield shield2("Скутум  \t", 14, -10, -5, 50);
 	MyArmor  armor1 ("Кож. Броня      ", 6, 0, 5, 30);
 	MyArmor  armor2 ("Куртка  \t", 2, 0, 5, 10);
-	
-	//тестовая зона/////////////////////////////////////////////////
+
 	Hero.item[0].create_item(weapon1);
 	Hero.item[1].create_item(weapon2);
 	Hero.item[2].create_item(shield1);
-	Hero.item[3].create_item(shield2);
 	Hero.item[4].create_item(armor1);
 	Hero.item[5].create_item(armor2);
 
 
+
 	//quest_enemy(Hero, 0, 2);
-	quest_traider(Hero, 0, 0);
+	//Hero.gold += 1000;
+	//quest_trader(Hero, 2, 0);
 	////////////////////////////////////////////////////////////////
 
 	//Загрузка карты
@@ -143,12 +146,12 @@ void Begin_chapter_2()
 		chance = rand() % 100;
 		switch (map_event[Hero.position_x][Hero.position_y] / 100)
 		{
-			case 1: if (chance > 5)  break;
-			case 2: if (chance > 10) break;
-			case 3: if (chance > 20) break;
-			case 4: if (chance > 40) break;
-			case 5: if (chance > 60) break;
-			case 6: if (chance > 80) break;
+			case 6: if (chance > 15) break;
+			case 2: if (chance > 25) break;
+			case 3: if (chance > 40) break;
+			case 4: if (chance > 60) break;
+			case 5: if (chance > 80) break;
+			case 1: if (chance > 100) break;
 			default : random_ivent(	Hero, map_event[Hero.position_x][Hero.position_y], static_cast<int>(map_terrain[Hero.position_x][Hero.position_y])); break;
 		}
 		
@@ -267,7 +270,7 @@ void Begin_chapter_2()
 						{
 							case 1: Hero.HP = 0; break;
 							case 2: break;
-							default: cout << "Передумали ?" << endl; _getch; continue;
+							default: cout << "Передумали ?" << endl; _getch(); continue;
 						}
 						break;
 

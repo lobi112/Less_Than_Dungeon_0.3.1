@@ -88,35 +88,35 @@ void quest_loot(MyHero& Hero, int loot_level, int loot_type)
 						}
 						case 1:
 						{
-							MyWeapon weapon("Посох   ",      2, 1, 4, 1, 0, 0, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Посох   ",      2, 1, 4, 1, 0, 0, 7); new_item(Hero, weapon); break;
 						}
 						case 2:
 						{
-							MyWeapon weapon("Вилы    ",      2, 0, 5, 1, 5, -10, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Вилы    ",      2, 0, 5, 1, 5, -10, 6); new_item(Hero, weapon); break;
 						}
 						case 3:
 						{
-							MyWeapon weapon("Нож     ",      1, 1, 3, 2, 0, 10, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Нож     ",      1, 1, 3, 2, 0, 10, 4); new_item(Hero, weapon); break;
 						}
 						case 4:
 						{
-							MyWeapon weapon("Кинжал  ",      1, 1, 5, 2, 5, 10, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Кинжал  ",      1, 1, 5, 2, 5, 10, 10); new_item(Hero, weapon); break;
 						}
 						case 5:
 						{
-							MyWeapon weapon("Ржавый меч",    1, 0, 7, 1, -5, -15, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Ржавый меч",    1, 0, 7, 1, -5, -15, 12); new_item(Hero, weapon); break;
 						}
 						case 6:
 						{
-							MyWeapon weapon("Старое копьё",  2, 1, 7, 2, 0, 0, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Старое копьё",  2, 1, 7, 2, 0, 0, 8); new_item(Hero, weapon); break;
 						}
 						case 7:
 						{
-							MyWeapon weapon("Ржавая булава", 1, 2, 8, 1, -10, -15, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Ржавая булава", 1, 2, 8, 1, -10, -15, 12); new_item(Hero, weapon); break;
 						}
 						case 8:
 						{
-							MyWeapon weapon("Ржавый топор",  1, 2, 8,  2, -5,  -10, 5); new_item(Hero, weapon); break;
+							MyWeapon weapon("Ржавый топор",  1, 2, 8,  2, -5,  -10, 15); new_item(Hero, weapon); break;
 						}
 						case 9:
 						{
@@ -164,11 +164,11 @@ void quest_loot(MyHero& Hero, int loot_level, int loot_type)
 						}
 						case 8:
 						{
-							MyWeapon weapon("Орочий меч", 1, 2, 10, 5, -10, -5, 12); new_item(Hero, weapon); break;
+							MyWeapon weapon("Орочий меч", 1, 2, 10, 2, -10, -15, 12); new_item(Hero, weapon); break;
 						}
 						case 9:
 						{
-							MyWeapon weapon("Молот кузнеца", 2, 2, 24, 4, -40, -40, 10); new_item(Hero, weapon); break;
+							MyWeapon weapon("Молот кузнеца", 2, 2, 24, 4, -40, -40, 18); new_item(Hero, weapon); break;
 						}
 					}
 					break;
@@ -315,7 +315,7 @@ void quest_loot(MyHero& Hero, int loot_level, int loot_type)
 						}
 						case 2:
 						{
-							MyArmor armor("Плащ вора       ", 1, 10, 10, 10); new_item(Hero, armor); break;
+							MyArmor armor("Плащ вора       ", 1, 10, 10, 15); new_item(Hero, armor); break;
 						}
 						case 3:
 						{

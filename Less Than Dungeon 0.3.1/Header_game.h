@@ -35,6 +35,8 @@ public:
 		weapon_speed = speed;
 		weapon_cost = cost;
 	}
+
+	~MyWeapon(){}
 };
 
 class MyArmor
@@ -54,6 +56,7 @@ public:
 		armor_speed = speed;
 		armor_cost = cost;
 	}
+	~MyArmor() {}
 };
 
 class MyShield
@@ -73,6 +76,7 @@ public:
 		shield_speed = speed;
 		shield_cost = cost;
 	}
+	~MyShield() {}
 };
 
 
@@ -139,9 +143,15 @@ public:
 			case 1:
 			case 2:
 			{
-				cout << "Название :\t" << "Тип :\t\t" << "Урон :\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :" << endl << endl;
-				cout << weapon_name << "\t";
+				cout << "Название :\t\t" << "Тип :\t\t" << "Стиль : \t" << "Урон :\t" << "Скорость :\t" << "Уклонение :\t" << "Цена :" << endl << endl;
+				cout << weapon_name << "\t\t";
 				(item_type == 1) ? cout << "Одноручное\t" : cout << "Двуручное\t";
+				switch (weapon_style)
+				{
+				case 0: cout << "Обычное \t"; break;
+				case 1: cout << "Быстрое \t"; break;
+				case 2: cout << "Тяжёлое \t"; break;
+				}
 				cout << (weapon_damage - weapon_damage_dif) << "-" << (weapon_damage + weapon_damage_dif) << "\t";
 				if (weapon_speed > 0)
 				{
@@ -225,7 +235,6 @@ class MyHero: public  MyItem
 	int shield;
 	int dodge;
 	int speed;
-	int magic;
 	int damage;
 	int damage_dif;
 	int chest_unlock;
@@ -330,31 +339,28 @@ class MyHero: public  MyItem
 			{
 				class_name = "Странник";
 				HP = 25;
-				max_HP = 100;
-				chest_unlock = 30;
+				max_HP = 50;
+				chest_unlock = 40;
 				base_armor = 0;
 				base_shield = 1;               
 				base_dodge = 30;
 				base_speed = 80;
-				base_magic = 2;
-				base_damage = 5;
+				base_damage = 4;
 				base_damage_dif = 2;
-				gold = 100;
 				break;
 			}
 
 			case 2:
 			{
 				class_name = "Воин"; 
-				HP = 40;
-				max_HP = 120;
-				chest_unlock = 20;
-				base_armor = 0;
-				base_shield = 1;
-				base_dodge = 30;
+				HP = 35;
+				max_HP = 60;
+				chest_unlock = 25;
+				base_armor = 1;
+				base_shield = 2;
+				base_dodge = 20;
 				base_speed = 80;
-				base_magic = 2;
-				base_damage = 3;
+				base_damage = 6;
 				base_damage_dif = 2;
 				break;
 			}
@@ -362,15 +368,14 @@ class MyHero: public  MyItem
 			case 3:
 			{
 				class_name = "Берсерк";
-				HP = 60;
-				max_HP = 150;
+				HP = 45;
+				max_HP = 70;
 				chest_unlock = 10;
 				base_armor = 0;
-				base_shield = 1;
-				base_dodge = 30;
+				base_shield = 2;
+				base_dodge = 0;
 				base_speed = 80;
-				base_magic = 2;
-				base_damage = 5;
+				base_damage = 8;
 				base_damage_dif = 2;
 				break;
 			}
@@ -379,15 +384,15 @@ class MyHero: public  MyItem
 			{
 				class_name = "Вор";
 				HP = 20;
-				max_HP = 80;
-				chest_unlock = 50;
+				max_HP = 40;
+				chest_unlock = 60;
 				base_armor = 0;
 				base_shield = 1;
-				base_dodge = 30;
-				base_speed = 80;
-				base_magic = 2;
-				base_damage = 5;
+				base_dodge = 35;
+				base_speed = 90;
+				base_damage = 4;
 				base_damage_dif = 2;
+				picklock = 10;
 			break;
 			}
 
@@ -401,7 +406,6 @@ class MyHero: public  MyItem
 				base_shield = 1;
 				base_dodge = 30;
 				base_speed = 80;
-				base_magic = 2;
 				base_damage = 5;
 				base_damage_dif = 2;
 			break;
@@ -417,7 +421,6 @@ class MyHero: public  MyItem
 				base_shield = 1;
 				base_dodge = 30;
 				base_speed = 80;
-				base_magic = 2;
 				base_damage = 5;
 				base_damage_dif = 2;
 			break;
@@ -429,15 +432,17 @@ class MyHero: public  MyItem
 	{
 		switch (block)
 		{
-		case 0:
-		{
-			(damage - armor < 0) ? damage = 0 : damage -= armor;
-		}
-		case 1:
-		{	cout << "Вы блокируете атаку." << endl;
-			_getch();
-			(damage - armor - block < 0) ? damage = 0 : damage -= (armor + block);
-		}
+			case 0:
+			{
+				(damage - armor < 0) ? damage = 0 : damage -= armor;
+				break;
+			}
+			case 1:
+			{	cout << "Вы блокируете атаку." << endl;
+				_getch();
+				(damage - armor - block < 0) ? damage = 0 : damage -= (armor + block);
+				break;
+			}
 		}
 		cout << "Противник нанёс вам " << damage;
 		switch (damage)
@@ -614,6 +619,7 @@ public:
 
 						run_away_possibility = true;
 						run_away_chance = 40;
+						break;
 					}
 					case 2:
 					{
@@ -635,6 +641,7 @@ public:
 
 						run_away_possibility = true;
 						run_away_chance = 40;
+						break;
 					}
 					case 3:
 					{
@@ -656,12 +663,219 @@ public:
 
 						run_away_possibility = true;
 						run_away_chance = 40;
+						break;
 					}
 				}
 				break;
 			}
-			case 2: break;
-			case 3: break;
+			case 2:
+			{
+				switch (enemy_ind)
+				{
+					case 0:
+					{
+						name = "Орк";
+						HP = max_HP = 35 + rand() % 6;
+						damage = 8;
+						damage_dif = 2;
+						speed = 70;
+						dodge = 20;
+						armor = 1;
+						shield = 3;
+
+						attack_tactic = 2;
+						defense_tactic = 0;
+
+						pay_off_possibility = true;
+						pay_off_chance = 30;
+						pay_off_cost = 15 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 30;
+						break;
+					}
+					case 1:
+					{
+						name = "Орк Охотник";
+						HP = max_HP = 35 + rand() % 6;
+						damage = 9 + rand()%3;
+						damage_dif = 2;
+						speed = 90;
+						dodge = 30;
+						armor = 2;
+						shield = 2;
+
+						attack_tactic = 1;
+						defense_tactic = 0;
+
+						pay_off_possibility = true;
+						pay_off_chance = 40;
+						pay_off_cost = 10 + rand() % 21;
+
+						run_away_possibility = true;
+						run_away_chance = 30;
+						break;
+					}
+					case 2:
+					{
+						name = "Орк Берсерк";
+						HP = max_HP = 35 + rand() % 6;
+						damage = 11+rand()%4;
+						damage_dif = 3;
+						speed = 80;
+						dodge = 0;
+						armor = 0;
+						shield = 4;
+
+						attack_tactic = 3;
+						defense_tactic = 3;
+
+						pay_off_possibility = false;
+
+						run_away_possibility = true;
+						run_away_chance = 20;
+						break;
+					}
+					case 3:
+					{
+						name = "Орк Боец";
+						HP = max_HP = 40 + rand() % 6;
+						damage = 8 + rand() % 3;
+						damage_dif = 2;
+						speed = 70;
+						dodge = 20;
+						armor = 3+rand()%3;
+						shield = 4+rand()%3;
+
+						attack_tactic = 2;
+						defense_tactic = 3;
+
+						pay_off_possibility = true;
+						pay_off_chance = 20;
+						pay_off_cost = 25 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+						break;
+					}
+				}
+				break;
+			}
+			case 3:
+			{
+				switch (enemy_ind)
+				{
+					case 0:
+					{
+						name = "Разбойник";
+						HP = max_HP = 25 + rand() % 6;
+						damage = 5;
+						damage_dif = 1;
+						speed = 90;
+						dodge = 30;
+						armor = rand() % 2;
+						shield = 2;
+
+						attack_tactic = 1;
+						defense_tactic = 0;
+
+						pay_off_possibility = true;
+						pay_off_chance = 100;
+						pay_off_cost = 20 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 30;
+						break;
+					}
+					case 1:
+					{
+						name = "Бандит";
+						HP = max_HP = 35 + rand() % 6;
+						damage = 5 + rand() % 3;
+						damage_dif = 1;
+						speed = 80;
+						dodge = 30;
+						armor = rand() % 2;
+						shield = 2;
+
+						attack_tactic = 1;
+						defense_tactic = 3;
+
+						pay_off_possibility = true;
+						pay_off_chance = 100;
+						pay_off_cost = 30 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 35;
+						break;
+					}
+					case 2:
+					{
+						name = "Бандит-Дезертир";
+						HP = max_HP = 40 + rand() % 6;
+						damage = 7+rand() % 3;
+						damage_dif = 2;
+						speed = 70;
+						dodge = 25;
+						armor = 3 + rand() % 3;
+						shield = 4 + rand() % 4;
+
+						attack_tactic = 2;
+						defense_tactic = 3;
+
+						pay_off_possibility = true;
+						pay_off_chance = 100;
+						pay_off_cost = 30 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 40;
+						break;
+					}
+					case 3:
+					{
+						name = "Бандит Убийца";
+						HP = max_HP = 35 + rand() % 6;
+						damage = 7 + rand() % 3;
+						damage_dif = 1;
+						speed = 90;
+						dodge = 35;
+						armor = 1 + rand() % 3;
+						shield = 2 + rand() % 2;
+
+						attack_tactic = 1;
+						defense_tactic = 3;
+
+						pay_off_possibility = true;
+						pay_off_chance = 0;
+						pay_off_cost = 5 + rand() % 11;
+
+						run_away_possibility = true;
+						run_away_chance = 20;
+						break;
+					}
+					case 4:
+					{
+						name = "Бандит Головорез";
+						HP = max_HP = 30 + rand() % 6;
+						damage = 9 + rand() % 3;
+						damage_dif = 2;
+						speed = 90;
+						dodge = 35;
+						armor = 0;
+						shield = 4 + rand() % 4;
+
+						attack_tactic = 3;
+						defense_tactic = 3;
+
+						pay_off_possibility = false;
+
+						run_away_possibility = true;
+						run_away_chance = 20;
+						break;
+					}
+				}
+				break;
+			}
 			case 4: break;
 		}
 	}
@@ -674,12 +888,14 @@ public:
 			case 0:
 			{
 				(damage - armor < 0) ? damage = 0 : damage -= armor;
+				break;
 			}
 			case 1: 
 			{
 				cout << "Противник блокирует атаку." << endl;
 				_getch();
 				(damage - armor - block < 0) ? damage = 0 : damage -= (armor + block);
+				break;
 			}
 		}
 		cout << "Вы нанесли " << damage;

@@ -109,7 +109,7 @@ void Hero_attack(MyHero& Hero, MyEnemy& Enemy, int attack_type)
 				}
 			}
 
-			if (block)
+			if (block == true)
 			{
 				Enemy.take_damage(damage + (-damage_dif + rand()%(2*damage_dif+1) ), 1);
 			}
@@ -122,7 +122,7 @@ void Hero_attack(MyHero& Hero, MyEnemy& Enemy, int attack_type)
 					case 0:
 					{
 						chance = rand() % 100;
-						if (chance < Enemy.speed*0.8)
+						if (chance < int(Enemy.speed*0.8))
 						{
 							Enemy.take_damage(damage + (-damage_dif + rand() % (2 * damage_dif + 1)), 1);
 						}
